@@ -29,6 +29,10 @@ print("gross")
 tx_hash = contract.functions.addGrossReceipts(1,123132123,9992334).transact()
 print("got")
 print(contract.functions.getElectionRecord(1).call())
+print("gross exp")
+tx_hash = contract.functions.addGrossExpenditure(1,123132123,9992334,2211).transact()
+print("got")
+print(contract.functions.getElectionRecord(1).call())
 
 
 

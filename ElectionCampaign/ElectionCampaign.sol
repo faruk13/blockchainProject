@@ -15,6 +15,11 @@ contract ElectionCampaign {
 		uint256 cash;
 		uint256 chequeAmount;
 	}
+	struct GrossExpenditure {
+		uint256 cash;
+		uint256 chequeAmount;
+		uint256 draft;
+	}
 
 
 	struct ElectionRecord {
@@ -22,6 +27,7 @@ contract ElectionCampaign {
 		string partyName;
 		OpeningBalance opBal;
 		GrossReceipts grRec;
+		GrossExpenditure grExp;
 		bool verifiedByECAgent;
 	}
 	mapping(uint => ElectionRecord ) records;
@@ -72,6 +78,17 @@ contract ElectionCampaign {
 	) public {
 		records[_recordId].grRec.cash = _c;
 		records[_recordId].grRec.chequeAmount = _chqAmt;
+	}
+
+	function addGrossExpenditure(
+		uint _recordId,
+		uint256 _c,
+		uint256 _chqAmt,
+		uint256 _draft
+	) public {
+		records[_recordId].grExp.cash = _c;
+		records[_recordId].grExp.chequeAmount = _chqAmt;
+		records[_recordId].grExp.draft = _draft;
 	}
 
 	// function addOpeningBalance(
