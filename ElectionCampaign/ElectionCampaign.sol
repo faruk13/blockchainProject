@@ -6,61 +6,92 @@ contract ElectionCampaign {
 		string bankName;
 		uint256 bankAmount;
 	}
-
 	struct OpeningBalance {
-        uint openingBalanceId;
-        string partyName;
 		uint256 cash;
 		uint256 otherDeposits;
 		OpeningBankBalance[] bankBalances;
 	}
-
-
-	// struct ElectionRecord {
-	// 	uint recordId;
-	// 	string partyName;
-	// 	OpeningBalance opBal;
-	// 	bool verifiedByECAgent;
-	// }
-	mapping(uint => OpeningBalance) opBals;
-    //OpeningBalance[] opBals;
-
-	function updateOpeningBankBalance(
-		uint _opBalId,
-		string memory _bName,
-        uint256 _bAmt
-	) public {
-		OpeningBankBalance memory b = OpeningBankBalance({
-			bankName: _bName,
-			bankAmount: _bAmt
-		});
-		opBals[_opBalId].bankBalances.push(b);
+	struct GrossReceipts {
+		uint256 cash;
+		uint256 chequeAmount;
 	}
 
-	function addOpeningBalance(
-		uint _opBalId,
+
+	struct ElectionRecord {
+		uint Id;
+		string partyName;
+		OpeningBalance opBal;
+		//GrossReceipts grRec;
+		bool verifiedByECAgent;
+	}
+	mapping(uint => ElectionRecord ) records;
+    //OpeningBalance[] opBals;
+
+	function addElectionRecord(
+		uint _id,
 		string memory _pName,
         uint256 _c,
         uint256 _oD,
 		string memory _bName,
         uint256 _bAmt
+		) public {
+			records[_id].Id = _id;
+			records[_id].partyName = _pName;
+			records[_id].opBal.cash = _c;
+			records[_id].opBal.otherDeposits = _oD;
+			OpeningBankBalance memory b = OpeningBankBalance({
+				bankName: _bName,
+				bankAmount: _bAmt
+			});
+			records[_id].opBal.bankBalances.push(b);
+			records[_id].verifiedByECAgent = false;
+
+	}
+
+	function getElectionRecord(uint _id) public view returns(
+		ElectionRecord memory str)
+    {
+		return records[_id];
+	}
+
+	function updateOpeningBankBalance(
+		uint _recordId,
+		string memory _bName,
+        uint256 _bAmt
 	) public {
-		opBals[_opBalId].openingBalanceId = _opBalId;
-		opBals[_opBalId].partyName = _pName;
-		opBals[_opBalId].cash = _c;
-		opBals[_opBalId].otherDeposits = _oD;
 		OpeningBankBalance memory b = OpeningBankBalance({
 			bankName: _bName,
 			bankAmount: _bAmt
 		});
-		opBals[_opBalId].bankBalances.push(b);
+		records[_recordId].opBal.bankBalances.push(b);
 	}
 
-	function getOpeningBalance(uint _id) public view returns(
-		OpeningBalance memory oB)
-    {
-		return opBals[_id];
-	}
+	// function addOpeningBalance(
+	// 	uint _opBalId,
+	// 	string memory _pName,
+    //     uint256 _c,
+    //     uint256 _oD,
+	// 	string memory _bName,
+    //     uint256 _bAmt
+	// ) public {
+	// 	opBals[_opBalId].openingBalanceId = _opBalId;
+	// 	opBals[_opBalId].partyName = _pName;
+	// 	opBals[_opBalId].cash = _c;
+	// 	opBals[_opBalId].otherDeposits = _oD;
+	// 	OpeningBankBalance memory b = OpeningBankBalance({
+	// 		bankName: _bName,
+	// 		bankAmount: _bAmt
+	// 	});
+	// 	opBals[_opBalId].bankBalances.push(b);
+	// }
+
+	// function getOpeningBalance(uint _id) public view returns(
+	// 	OpeningBalance memory oB)
+    // {
+	// 	return opBals[_id];
+	// }
+
+
 
 
 
