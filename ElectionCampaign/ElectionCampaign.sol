@@ -21,7 +21,7 @@ contract ElectionCampaign {
 		uint Id;
 		string partyName;
 		OpeningBalance opBal;
-		//GrossReceipts grRec;
+		GrossReceipts grRec;
 		bool verifiedByECAgent;
 	}
 	mapping(uint => ElectionRecord ) records;
@@ -45,7 +45,6 @@ contract ElectionCampaign {
 			});
 			records[_id].opBal.bankBalances.push(b);
 			records[_id].verifiedByECAgent = false;
-
 	}
 
 	function getElectionRecord(uint _id) public view returns(
@@ -64,6 +63,15 @@ contract ElectionCampaign {
 			bankAmount: _bAmt
 		});
 		records[_recordId].opBal.bankBalances.push(b);
+	}
+
+	function addGrossReceipts(
+		uint _recordId,
+		uint256 _c,
+		uint256 _chqAmt
+	) public {
+		records[_recordId].grRec.cash = _c;
+		records[_recordId].grRec.chequeAmount = _chqAmt;
 	}
 
 	// function addOpeningBalance(

@@ -25,6 +25,10 @@ tx_hash = contract.functions.updateOpeningBankBalance(1,'B2',342232334).transact
 print(tx_hash)
 print("got")
 print(contract.functions.getElectionRecord(1).call())
+print("gross")
+tx_hash = contract.functions.addGrossReceipts(1,123132123,9992334).transact()
+print("got")
+print(contract.functions.getElectionRecord(1).call())
 
 
 
