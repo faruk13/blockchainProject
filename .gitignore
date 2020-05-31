@@ -42,4 +42,6 @@ Thumbs.db
 *.pyo
 *.bak
 *.swp
+*.abi
+*.bin
 /__pycache__/*
