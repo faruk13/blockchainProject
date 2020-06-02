@@ -15,6 +15,7 @@ contract = web3.eth.contract(address= contract_address , abi=contract_abi)
 
 
 ##ElectionCampaign
+<<<<<<< HEAD
 # print("stored")
 # tx_hash = contract.functions.addOpeningBalance(1,'p1',2121,32424,'B1',34234).transact()
 # print(tx_hash)
@@ -22,10 +23,16 @@ contract = web3.eth.contract(address= contract_address , abi=contract_abi)
 # print(contract.functions.getOpeningBalance(0).call())
 tx_hash = contract.functions.addElectionRecord(1,'p1',2121,32424,'B1',34234).transact()
 print(web3.toHex(tx_hash))
+=======
+print("stored")
+tx_hash = contract.functions.addElectionRecord(1,'p1',2121,32424,'B1',34234).transact()
+print(tx_hash)
+>>>>>>> master
 print("rec")
 print(contract.functions.getElectionRecord(1).call())
 print("updated")
 tx_hash = contract.functions.updateOpeningBankBalance(1,'B2',342232334).transact()
+<<<<<<< HEAD
 print(web3.toHex(tx_hash))
 # print("got")
 # print(contract.functions.getElectionRecord(1).call())
@@ -58,5 +65,42 @@ print(contract.functions.getElectionRecord(1).call())
 
 
 
+=======
+print(tx_hash)
+print("got")
+print(contract.functions.getElectionRecord(1).call())
+print("gross")
+tx_hash = contract.functions.addGrossReceipts(1,123132123,9992334).transact()
+print("got")
+print(contract.functions.getElectionRecord(1).call())
+print("gross exp")
+tx_hash = contract.functions.addGrossExpenditure(1,123132123,9992334,2211).transact()
+print("got")
+print(contract.functions.getElectionRecord(1).call())
+
+
+
+# print("stored")
+# tx_hash = contract.functions.addOpeningBalance(1,'p1',2121,32424,'B1',34234).transact()
+# print(tx_hash)
+# print("got")
+# print(contract.functions.getOpeningBalance(0).call())
+# print("stored")
+# tx_hash = contract.functions.addOpeningBalance(1,'p1',2121,32424,'B1',34234).transact()
+# print(tx_hash)
+# print("stored")
+# tx_hash = contract.functions.updateOpeningBankBalance(1,'B2',32224234).transact()
+# print(tx_hash)
+# print("got")
+# print(contract.functions.getOpeningBalance(1).call())
+# print("stored")
+# tx_hash = contract.functions.addOpeningBalance(2,'p1',2122221,32424,'B1',3499234).transact()
+# print(tx_hash)
+# print("stored")
+# tx_hash = contract.functions.updateOpeningBankBalance(2,'B2',322212224234).transact()
+# print(tx_hash)
+# print("got")
+# print(contract.functions.getOpeningBalance(2).call())
+>>>>>>> master
 
 
