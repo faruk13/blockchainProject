@@ -1,0 +1,20 @@
+#### after Travel Expenses PR
+
+account address: 0x72eAe14CAbAba7c89143Ff56e09a5863Eb621232
+Contract 'ElectionCampaign' deployed; Waiting to transaction receipt
+Contract 'ElectionCampaign' deployed to: 0x914F1220aFcED7168DB74a5b84ecEBDeE86A232d
+0x71a8dccf311597f7e3219c6a94a478bf019d20ebd1800fb09d07d36e4ee793c3
+rec
+(1, 'p1', (2121, 32424, [('B1', 34234)]), (0, 0), (0, 0, 0), [], False)
+updated
+0x801424701b4ca8a8bcc8cbdcab7072a148086900cbfa33c6891758cf090db8d4
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [], False)
+travelExp
+0xca66f06ed9d1900c48d58772d2fbabeac6b214a826d87beab865c828b560b0b0
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1'], 'aircr', 'payee1', 0)], False)
+update star Campaigner
+0xf354d77372b80e6bac0eaaed6a33ff9a9eb441b0743c096b2dee4faf1c2ff09e
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0)], False)
