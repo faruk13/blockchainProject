@@ -46,3 +46,5 @@ Thumbs.db
 *.bin
 /bin/ElectionCampaign/*
 /__pycache__/*
+/bin/*
+/venv/*
