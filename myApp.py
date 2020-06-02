@@ -6,20 +6,9 @@ web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 web3.eth.defaultAccount = web3.eth.accounts[0]
 
-address= web3.toChecksumAddress("0x94e719e85e9233111AD6FCF78c03e334768a2B8F")
-	#0x824A7944bF287F02F9EbAE68020181735edAE1CD")
-#0x94e719e85e9233111AD6FCF78c03e334768a2B8F public add function
-#contract_address = '0x8F570183780340D6eb9024D92072B4e68a56b3f6'
 contract = web3.eth.contract(address= contract_address , abi=contract_abi)
 
-
-
 ##ElectionCampaign
-# print("stored")
-# tx_hash = contract.functions.addOpeningBalance(1,'p1',2121,32424,'B1',34234).transact()
-# print(tx_hash)
-# print("got")
-# print(contract.functions.getOpeningBalance(0).call())
 tx_hash = contract.functions.addElectionRecord(1,'p1',2121,32424,'B1',34234).transact()
 print(web3.toHex(tx_hash))
 print("rec")
