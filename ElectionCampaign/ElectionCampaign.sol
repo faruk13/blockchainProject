@@ -29,6 +29,25 @@ contract ElectionCampaign {
 		string nameOfAircraftPayee;
 		uint256 totalExpenses;
 	}
+	struct ExpensesOnMediaAd {
+		string state;
+		string nameOfPayee;
+		string nameOfMedia;
+		string dateOfTelecast;
+		uint256 amount;
+	}
+	struct ExpensesOnPublicityMaterial {
+		string state;
+		string nameOfRegion;
+		string detailsOfItems;
+		uint256 amount;
+	}
+	struct ExpensesOnPublicMeetings {
+		string stateAndVenue;
+		string dateOfMeeting;
+		string detailsOfItems;
+		uint256 amount;
+	}
 	struct ElectionRecord {
 		uint Id;
 		string partyName;
@@ -36,6 +55,9 @@ contract ElectionCampaign {
 		GrossReceipt grRec;
 		GrossExpenditure grExp;
 		TravelExpensesStarCampaigners[] trExpStCam;
+		ExpensesOnMediaAd[] expMedia;
+		ExpensesOnPublicityMaterial[] expPubMat;
+		ExpensesOnPublicMeetings[] expPubMeet;
 		bool verifiedByECAgent;
 	}
 	mapping(uint => ElectionRecord ) records;
@@ -136,6 +158,56 @@ contract ElectionCampaign {
 		trE.starCampaigners.push(_starCampaignerName);
 
 		return trE.starCampaigners.length;
+	}
+
+	function addExpensesOnMediaAd(
+		uint _recordId,
+		string _state,
+		string _nOfPayee,
+		string _nOfMedia,
+		string _dOfTele,
+		uint256 _amt
+	) public {
+		ExpensesOnMediaAd memory expM = ExpensesOnMediaAd(
+			_state,
+			_nOfPayee,
+			_nOfMedia,
+			_dOfTele,
+			_amt
+		);
+		records[_recordId].expMedia.push(expM);
+	}
+
+	function addExpensesOnPublicityMaterial(
+		uint _recordId,
+		string _state,
+		string _nOfRegion,
+		string _detOfItems,
+		uint256 _amt
+	) public {
+		ExpensesOnPublicityMaterial memory expPM = ExpensesOnPublicityMaterial(
+			_state,
+			_nOfRegion,
+			_detOfItems,
+			_amt
+		);
+		records[_recordId].expPubMat.push(expPM);
+	}
+
+	function addExpensesOnPublicMeetings(
+		uint _recordId,
+		string _state,
+		string _dOfMeet,
+		string _detOfItems,
+		uint256 _amt
+	) public {
+		ExpensesOnPublicMeetings memory expPMeet = ExpensesOnPublicMeetings(
+			_state,
+			_dOfMeet,
+			_detOfItems,
+			_amt
+		);
+		records[_recordId].expPubMeet.push(expPMeet);
 	}
 
 }
