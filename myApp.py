@@ -34,6 +34,7 @@ print("travelExp")
 # signed = web3.eth.account.signTransaction(transaction, senderAccount.privateKey)
 # tx_hash = web3.eth.sendRawTransaction(signed.rawTransaction)
 tx_hash = contract.functions.addTravelExpensesStarCampaigners(1,1,'State1','2020-04-21','cand1','aircr','payee1').transact()
+
 print(web3.toHex(tx_hash))
 print("got")
 print(contract.functions.getElectionRecord(1).call())
@@ -81,12 +82,16 @@ print(contract.functions.getElectionRecord(1).call())
 print("add pub meetings 2")
 tx_hash = contract.functions.addExpensesOnPublicMeetings(1,'state1','2020-04-24','item2',76482611).transact()
 print(web3.toHex(tx_hash))
+
 print("got")
 print(contract.functions.getElectionRecord(1).call())
 
 print("got opening balance")
 print(contract.functions.getERecOpeningBalance(1).call())
-print("type", type(contract.functions.getERecOpeningBalance(1).call()))
+print("got exp on media ad")
+print(contract.functions.getERecExpensesOnMediaAd(1).call())
+print("got travel exp ")
+print(contract.functions.getERecTravelExpensesStarCampaigners(1).call())
 
 
 
