@@ -210,8 +210,14 @@ contract ElectionCampaign {
 		records[_recordId].expPubMeet.push(expPMeet);
 	}
 
+	function getERecPartyName(uint _id)
+	public view returns(string)
+    {
+		return records[_id].partyName;
+	}
+
 	function getERecOpeningBalance(uint _id)
-	public view returns(OpeningBalance memory str)
+	public view returns(OpeningBalance)
     {
 		return records[_id].opBal;
 	}
