@@ -210,4 +210,52 @@ contract ElectionCampaign {
 		records[_recordId].expPubMeet.push(expPMeet);
 	}
 
+	function getERecOpeningBalance(uint _id)
+	public view returns(OpeningBalance memory str)
+    {
+		return records[_id].opBal;
+	}
+
+	function getERecGrossReceipt(uint _id)
+	public view returns(GrossReceipt)
+    {
+		return records[_id].grRec;
+	}
+
+	function getERecGrossExpenditure(uint _id)
+	public view returns(GrossExpenditure)
+    {
+		return records[_id].grExp;
+	}
+
+	function getERecTravelExpensesStarCampaigners(uint _id)
+	public view returns(TravelExpensesStarCampaigners[])
+    {
+		return records[_id].trExpStCam;
+	}
+
+	function getERecExpensesOnMediaAd(uint _id)
+	public view returns(ExpensesOnMediaAd[])
+    {
+		return records[_id].expMedia;
+	}
+
+	function getERecExpensesOnPublicityMaterial(uint _id)
+	public view returns(ExpensesOnPublicityMaterial[])
+    {
+		return records[_id].expPubMat;
+	}
+
+	function getERecExpensesOnPublicMeetings(uint _id)
+	public view returns(ExpensesOnPublicMeetings[])
+    {
+		return records[_id].expPubMeet;
+	}
+
+	function getERecVerifiedByECAgent(uint _id)
+	public view returns(bool)
+    {
+		return records[_id].verifiedByECAgent;
+	}
+
 }

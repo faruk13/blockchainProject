@@ -84,6 +84,9 @@ print(web3.toHex(tx_hash))
 print("got")
 print(contract.functions.getElectionRecord(1).call())
 
+print("got opening balance")
+print(contract.functions.getERecOpeningBalance(1).call())
+print("type", type(contract.functions.getERecOpeningBalance(1).call()))
 
 
 
