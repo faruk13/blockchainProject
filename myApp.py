@@ -1,7 +1,8 @@
 import json
 from web3 import Web3
 from deployContract import contract_abi, contract_address, ganache_url, senderAccount
-
+# while running as web app, can use the above vars as const from config file
+# we deploy only once
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 web3.eth.defaultAccount = web3.eth.accounts[0]
