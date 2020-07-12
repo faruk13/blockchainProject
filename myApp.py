@@ -93,6 +93,14 @@ print("got exp on media ad")
 print(contract.functions.getERecExpensesOnMediaAd(1).call())
 print("got travel exp ")
 print(contract.functions.getERecTravelExpensesStarCampaigners(1).call())
+print("get record count")
+print(contract.functions.getERecCount().call())
+tx_hash = contract.functions.addElectionRecord(2,'p2',1112121,99932424,'B112',3424234).transact()
+print(web3.toHex(tx_hash))
+print("add record 2")
+print("get record count")
+print(contract.functions.getERecCount().call())
+
 
 
 

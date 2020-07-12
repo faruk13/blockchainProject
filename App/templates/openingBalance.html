@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% from 'macros.html' import all_links, party_name %}
 
 {% block app_content %}
 
     <p>{{ openingBalance }}</p>
+    {{ party_name(party) }}
     <h3>Cash: {{ openingBalance.opening_balance.cash }}</h3>
     <h3>Other Deposits: {{ openingBalance.opening_balance.other_deposits }}</h3>
 
@@ -27,18 +28,7 @@
         </tbody>
      </table>
 
-
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-plus"></span> Index </a>
-        </button>
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('openingBalance', recordNo=2) }}"><span class="glyphicon glyphicon-gift"></span> openingBalance </a>
-        </button>
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-sunglasses"></span> Check Previous Orders </a>
-        </button>
-    </div>
+    {{ all_links() }}
 
 {% endblock %}
 

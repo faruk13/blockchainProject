@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% from 'macros.html' import all_links, party_name %}
+
+{% block app_content %}
+
+
+    <p>{{ travelExpense }}</p>
+    {{ party_name(party) }}
+
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Travel Expenses:</h3>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+           <tr>
+            <th>Id</th>
+            <th>State </th>
+            <th>Date Of Meeting</th>
+            <th>Star Campaigners</th>
+            <th>Mode of Travel </th>
+            <th>Name of Aircraft Payee</th>
+            <th>Total Expenses </th>
+           </tr>
+        </thead>
+
+        <tbody>
+            {% for p in travelExpense.travel_expenses %}
+              <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.state }}</td>
+                <td>{{ p.date_of_meeting }}</td>
+                <td>{% for x in p.star_campaigners %} {{ x }} {% endfor %}</td>
+                <td>{{ p.mode_of_travel }}</td>
+                <td>{{ p.name_of_aircraft_payee }}</td>
+                <td>{{ p.total_expenses }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+     </table>
+
+    {% from 'macros.html' import all_links %}
+    {{ all_links() }}
+
+
+{% endblock %}
+

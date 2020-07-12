@@ -41,3 +41,14 @@
          </tbody>
       </table>
       -->
+
+
+
+<!-- <h3>Cash: {{ grossExpenditure.gross_expenditure.cash }}</h3>
+    <h3>Cheque Amount: {{ grossExpenditure.gross_expenditure.cheque_amount }}</h3>
+    <h3>Draft: {{ grossExpenditure.gross_expenditure.draft }}</h3>
+
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Gross Receipt:</h3>
+    <h3>Cash: {{ grossReceipt.gross_receipt.cash }}</h3>
+    <h3>Cheque Amount: {{ grossReceipt.gross_receipt.cheque_amount }}</h3>
+    <p>{{ grossReceipt }}</p> -->

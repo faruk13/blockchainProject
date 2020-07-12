@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from 'macros.html' import all_links, party_name %}
+
+
+{% block app_content %}
+
+    <p>{{ mediaExpense }}</p>
+    {{ party_name(party) }}
+
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Media Expenses:</h3>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+           <tr>
+            <th>State </th>
+            <th>Name Of Payee</th>
+            <th>Name Of Media</th>
+            <th>Date Of Telecast</th>
+            <th>Amount</th>
+           </tr>
+        </thead>
+
+        <tbody>
+            {% for p in mediaExpense.expenses_media_ad %}
+            <tr>
+                <td>{{ p.state }}</td>
+                <td>{{ p.name_of_payee }}</td>
+                <td>{{ p.name_of_media }}</td>
+                <td>{{ p.date_of_telecast }}</td>
+                <td>{{ p.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% from 'macros.html' import all_links %}
+    {{ all_links() }}
+
+{% endblock %}
+
