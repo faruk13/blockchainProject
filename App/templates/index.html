@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <h2>Medicine Stock in Pharmacy</h2>
+    <p>{{ hello }}</p>
+    <p>{{ rec_count }}</p>
+
+	<p><a href = "{{ url_for('index') }}">Index </a></p>
+    <br>
+    <p><a href = "{{ url_for('openingBalance', recordNo=1) }}">openingBalance </a></p>
+    <br>
+    <p><a href = "{{ url_for('index') }}">Check Previous Orders </a></p>
+
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default">
+            <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-plus"></span> Index </a>
+        </button>
+        <button type="button" class="btn btn-default">
+            <a href = "{{ url_for('openingBalance', recordNo=2) }}"><span class="glyphicon glyphicon-gift"></span> openingBalance </a>
+        </button>
+        <button type="button" class="btn btn-default">
+            <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-sunglasses"></span> Check Previous Orders </a>
+        </button>
+    </div>
+
+{% endblock %}
+
