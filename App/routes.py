@@ -6,55 +6,54 @@ from App import serializer as serialize
 @app.route('/')
 @app.route('/index')
 def index():
-   # user = {'username': 'admin'}
 
-    hello = "Hello get record count"
     rec_count = contract.functions.getERecCount().call()
-    return render_template('index.html' ,title='Pharmacy', rec_count=rec_count)
+    #party = contract.functions.getERecPartyName(recordNo).call()
+    return render_template('index.html' ,title='Election Records in Blockchain', rec_count=rec_count)
 
 
 @app.route('/openingBalance/<int:recordNo>')
 def openingBalance(recordNo):
 
-    hello = "Hello get record count"
+    party = contract.functions.getERecPartyName(recordNo).call()
     openingBalance = serialize.serOpeningBalance(contract.functions.getERecOpeningBalance(recordNo).call())
-    return render_template('openingBalance.html', openingBalance=openingBalance)
+    return render_template('openingBalance.html', party=party, openingBalance=openingBalance)
 
 @app.route('/grossExpense/<int:recordNo>')
 def grossExpense(recordNo):
 
-    hello = "Hello get record count"
+    party = contract.functions.getERecPartyName(recordNo).call()
     grossReceipt = serialize.serGrossReceipt(contract.functions.getERecGrossReceipt(recordNo).call())
     grossExpenditure = serialize.serGrossExpenditure(contract.functions.getERecGrossExpenditure(recordNo).call())
-    return render_template('grossExpense.html', grossReceipt=grossReceipt, grossExpenditure=grossExpenditure)
+    return render_template('grossExpense.html', party=party, grossReceipt=grossReceipt, grossExpenditure=grossExpenditure)
 
 @app.route('/travelExpense/<int:recordNo>')
 def travelExpense(recordNo):
 
-    hello = "Hello get record count"
+    party = contract.functions.getERecPartyName(recordNo).call()
     travelExpense = serialize.serTravelExpensesStarCampaigners(contract.functions.getERecTravelExpensesStarCampaigners(recordNo).call())
-    return render_template('travelExpense.html', travelExpense=travelExpense)
+    return render_template('travelExpense.html', party=party, travelExpense=travelExpense)
 
 @app.route('/mediaExpense/<int:recordNo>')
 def mediaExpense(recordNo):
 
-    hello = "Hello get record count"
+    party = contract.functions.getERecPartyName(recordNo).call()
     mediaExpense = serialize.serExpensesOnMediaAd(contract.functions.getERecExpensesOnMediaAd(recordNo).call())
-    return render_template('mediaExpense.html', mediaExpense=mediaExpense)
+    return render_template('mediaExpense.html', party=party, mediaExpense=mediaExpense)
 
 @app.route('/publicityExpense/<int:recordNo>')
 def publicityExpense(recordNo):
 
-    hello = "Hello get record count"
+    party = contract.functions.getERecPartyName(recordNo).call()
     publicityExpense = serialize.serExpensesOnPublicityMaterial(contract.functions.getERecExpensesOnPublicityMaterial(recordNo).call())
-    return render_template('publicityExpense.html', publicityExpense=publicityExpense)
+    return render_template('publicityExpense.html', party=party, publicityExpense=publicityExpense)
 
 @app.route('/publicMeeting/<int:recordNo>')
 def publicMeeting(recordNo):
 
-    hello = "Hello get record count"
+    party = contract.functions.getERecPartyName(recordNo).call()
     publicMeeting = serialize.serExpensesOnPublicMeetings(contract.functions.getERecExpensesOnPublicMeetings(recordNo).call())
-    return render_template('publicMeeting.html', publicMeeting=publicMeeting)
+    return render_template('publicMeeting.html', party=party, publicMeeting=publicMeeting)
 
 
 """

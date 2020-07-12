@@ -1,10 +1,12 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% from 'macros.html' import all_links, party_name %}
 
 {% block app_content %}
 
 
     <p>{{ grossExpenditure }}</p>
+    {{ party_name(party) }}
+
     <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Gross Expenditure:</h3>
     <h3>Cash: {{ grossExpenditure.gross_expenditure.cash }}</h3>
     <h3>Cheque Amount: {{ grossExpenditure.gross_expenditure.cheque_amount }}</h3>
@@ -15,7 +17,6 @@
     <h3>Cheque Amount: {{ grossReceipt.gross_receipt.cheque_amount }}</h3>
     <p>{{ grossReceipt }}</p>
 
-    {% from 'macros.html' import all_links %}
     {{ all_links() }}
 
 

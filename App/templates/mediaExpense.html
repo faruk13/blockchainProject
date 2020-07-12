@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% from 'macros.html' import all_links, party_name %}
+
 
 {% block app_content %}
 
     <p>{{ mediaExpense }}</p>
+    {{ party_name(party) }}
+
     <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Media Expenses:</h3>
     <table class="table table-striped table-bordered table-hover">
         <thead>

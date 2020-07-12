@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% from 'macros.html' import all_links, party_name %}
+
 
 {% block app_content %}
 
-    <h2>Medicine Stock in Pharmacy</h2>
     <p>{{ hello }}</p>
-    <p>{{ rec_count }}</p>
+    <p>Total records: {{ rec_count }}</p>
 
-    {% from 'macros.html' import all_links %}
     {{ all_links() }}
 
 
