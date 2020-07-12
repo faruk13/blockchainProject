@@ -20,7 +20,7 @@ def serOpeningBalance(tu):
 
 def serGrossReceipt(tu):
     dictStruct = {
-        'gross_expenditure': {
+        'gross_receipt': {
             'cash': tu[0],
             'cheque_amount': tu[1]
         }

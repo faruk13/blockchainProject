@@ -3,15 +3,18 @@
 
 {% block app_content %}
 
-    <h2>Medicine Stock in Pharmacy</h2>
-    <p>{{ hello }}</p>
-    <p>{{ rec_count }}</p>
 
-	<p><a href = "{{ url_for('index') }}">Index </a></p>
-    <br>
-    <p><a href = "{{ url_for('openingBalance', recordNo=1) }}">openingBalance </a></p>
-    <br>
-    <p><a href = "{{ url_for('index') }}">Check Previous Orders </a></p>
+    <p>{{ grossExpenditure }}</p>
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Gross Expenditure:</h3>
+    <h3>Cash: {{ grossExpenditure.gross_expenditure.cash }}</h3>
+    <h3>Cheque Amount: {{ grossExpenditure.gross_expenditure.cheque_amount }}</h3>
+    <h3>Draft: {{ grossExpenditure.gross_expenditure.draft }}</h3>
+
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Gross Receipt:</h3>
+    <h3>Cash: {{ grossReceipt.gross_receipt.cash }}</h3>
+    <h3>Cheque Amount: {{ grossReceipt.gross_receipt.cheque_amount }}</h3>
+    <p>{{ grossReceipt }}</p>
+
 
     <div class="btn-group" role="group" aria-label="...">
         <button type="button" class="btn btn-default">
@@ -22,9 +25,6 @@
         </button>
         <button type="button" class="btn btn-default">
             <a href = "{{ url_for('grossExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Gross Expense </a>
-        </button>
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('travelExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Travel Expense </a>
         </button>
     </div>
 

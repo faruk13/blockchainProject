@@ -20,6 +20,20 @@ def openingBalance(recordNo):
     openingBalance = serialize.serOpeningBalance(contract.functions.getERecOpeningBalance(recordNo).call())
     return render_template('openingBalance.html', openingBalance=openingBalance)
 
+@app.route('/grossExpense/<int:recordNo>')
+def grossExpense(recordNo):
+
+    hello = "Hello get record count"
+    grossReceipt = serialize.serGrossReceipt(contract.functions.getERecGrossReceipt(recordNo).call())
+    grossExpenditure = serialize.serGrossExpenditure(contract.functions.getERecGrossExpenditure(recordNo).call())
+    return render_template('grossExpense.html', grossReceipt=grossReceipt, grossExpenditure=grossExpenditure)
+
+@app.route('/travelExpense/<int:recordNo>')
+def travelExpense(recordNo):
+
+    hello = "Hello get record count"
+    travelExpense = serialize.serTravelExpensesStarCampaigners(contract.functions.getERecTravelExpensesStarCampaigners(recordNo).call())
+    return render_template('travelExpense.html', travelExpense=travelExpense)
 
 """
 @app.route('/login', methods=['GET', 'POST'])
