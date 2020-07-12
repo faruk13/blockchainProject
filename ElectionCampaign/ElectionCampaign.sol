@@ -61,6 +61,7 @@ contract ElectionCampaign {
 		bool verifiedByECAgent;
 	}
 	mapping(uint => ElectionRecord ) records;
+	uint256 recordCount = 0;
 
 	function addElectionRecord(
 		uint _id,
@@ -80,6 +81,8 @@ contract ElectionCampaign {
 			});
 			records[_id].opBal.bankBalances.push(b);
 			records[_id].verifiedByECAgent = false;
+
+			recordCount++;
 	}
 
 	function getElectionRecord(uint _id) public view returns(
@@ -208,6 +211,12 @@ contract ElectionCampaign {
 			_amt
 		);
 		records[_recordId].expPubMeet.push(expPMeet);
+	}
+
+	function getERecCount()
+	public view returns(uint256)
+    {
+		return recordCount;
 	}
 
 	function getERecPartyName(uint _id)
