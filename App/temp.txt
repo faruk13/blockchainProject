@@ -1,0 +1,43 @@
+ <!--
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('addToMedStock') }}">Add to Med Stock</a></li>
+                    <li><a href="{{ url_for('customerOrder')  }}">Sell Meds</a></li>
+                    <li><a href="{{ url_for('previousOrders')}}">Check Previous Orders</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% endif %}
+                </ul>
+            -->
+
+
+            <!--
+	<table>
+         <thead>
+            <tr>
+               	<th>MedID</th>
+		<th>MedName</th>
+               	<th>Manufacturer Id</th>
+               	<th>Manufacturer Name</th>
+               	<th>Available Quantity</th>
+	       	<th>Price</th>
+	       	<th>Expiry Date</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for p in medicinestock %}
+               <tr>
+                  <td>{{ p.medId }}</td>
+                  <td>{{ p.medName }}</td>
+                  <td>{{ p.manufId }}</td>
+                  <td>{{ p.manufName }}</td>
+		  <td>{{ p.availQnty }}</td>
+		  <td>{{ p.CO1 }}</td>
+		  <td>{{ p.expDate }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      -->

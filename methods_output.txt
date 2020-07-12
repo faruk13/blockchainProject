@@ -1,0 +1,54 @@
+account address: 0x72eAe14CAbAba7c89143Ff56e09a5863Eb621232
+Contract 'ElectionCampaign' deployed; Waiting to transaction receipt
+Contract 'ElectionCampaign' deployed to: 0xfbb453375B015641013FF034F332f8a61b7B8601
+0x360219802758952695c5572be24bc9dd046d65971f0c469dbae8a3d454f198db
+rec
+(1, 'p1', (2121, 32424, [('B1', 34234)]), (0, 0), (0, 0, 0), [], [], [], [], False)
+updated
+0xe9df0d87a104208da7b7f554252e4f84a352fe3b2caea8c7b153a35a8180a8fe
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [], [], [], [], False)
+travelExp
+0x79c399da805be4e0c392b244894f1ba94f5df4e5d059a4ec182945e26ce1f2ee
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1'], 'aircr', 'payee1', 0)], [], [], [], False)
+update star Campaigner
+0x905d62e46dc7c72f501cc46fbde7e82c0ec38b6bd8ce0bace4befbee1a324e68
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0)], [], [], [], False)
+add 2nd travel exp
+0xab36158698ddf3a9e83994a82a4c67193f81252cfbdc14913d9a905143b5db7e
+update 2nd travel exp star Campaigner
+0xe951db9e21a40ef16d496f9583e73da69f275fc422af358e23173959ca67960e
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [], [], [], False)
+add media ad
+0x8c13c58326b9ab3dac1245a6466f9ea394908562cc553a82a07091d1f840bb32
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [('state1', 'payee3', 'media1', '2020-04-22', 1111)], [], [], False)
+add 2nd media ad
+0x449bab80ae86431b5a83c0ab55f3dbaa21e1163d39dcae688a6e29a242fc09f9
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [('state1', 'payee3', 'media1', '2020-04-22', 1111), ('state1', 'payee4', 'media111', '2020-04-22', 2222)], [], [], False)
+add pub mat 1
+0x3edb61b6e88ba26ff80a23fd3b3777f7b8ae9c9521e6578d762a742bd297a1c9
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [('state1', 'payee3', 'media1', '2020-04-22', 1111), ('state1', 'payee4', 'media111', '2020-04-22', 2222)], [('state1', 'reg1', 'item1', 1121212)], [], False)
+add pub mat 2
+0xb45028f71bbf6cbde1d4248d7d3493c364c593f90360ca7aa80dfe352aaff0e0
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [('state1', 'payee3', 'media1', '2020-04-22', 1111), ('state1', 'payee4', 'media111', '2020-04-22', 2222)], [('state1', 'reg1', 'item1', 1121212), ('state1', 'reg1', 'item2', 12131744)], [], False)
+add pub meetings 1
+0x6fff8fe11376af7bc5efc8c1a784ba8bac9eb851f876b755db3b52b5384131b0
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [('state1', 'payee3', 'media1', '2020-04-22', 1111), ('state1', 'payee4', 'media111', '2020-04-22', 2222)], [('state1', 'reg1', 'item1', 1121212), ('state1', 'reg1', 'item2', 12131744)], [('state1', '2020-04-22', 'item1', 13887318)], False)
+add pub meetings 2
+0x9e8ec4af98b51b42a01dfcdc8103b09e91fc6e858470d24b2fad35c8b4ec77a6
+got
+(1, 'p1', (2121, 32424, [('B1', 34234), ('B2', 342232334)]), (0, 0), (0, 0, 0), [(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)], [('state1', 'payee3', 'media1', '2020-04-22', 1111), ('state1', 'payee4', 'media111', '2020-04-22', 2222)], [('state1', 'reg1', 'item1', 1121212), ('state1', 'reg1', 'item2', 12131744)], [('state1', '2020-04-22', 'item1', 13887318), ('state1', '2020-04-24', 'item2', 76482611)], False)
+got opening balance
+(2121, 32424, [('B1', 34234), ('B2', 342232334)])
+got exp on media ad
+[('state1', 'payee3', 'media1', '2020-04-22', 1111), ('state1', 'payee4', 'media111', '2020-04-22', 2222)]
+got travel exp
+[(1, 'State1', '2020-04-21', ['cand1', 'Cand2'], 'aircr', 'payee1', 0), (2, 'State1', '2020-04-21', ['cand1', 'Cand3'], 'aircr', 'payee1', 0)]
