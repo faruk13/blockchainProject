@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+    <p>{{ publicMeeting }}</p>
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Public Meeting:</h3>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+           <tr>
+            <th>State </th>
+            <th>Date Of Meeting</th>
+            <th>Details of Items</th>
+            <th>Amount</th>
+           </tr>
+        </thead>
+
+        <tbody>
+            {% for p in publicMeeting.expenses_public_meeting %}
+            <tr>
+                <td>{{ p.state }}</td>
+                <td>{{ p.date_of_meeting }}</td>
+                <td>{{ p.details_of_items }}</td>
+                <td>{{ p.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% from 'macros.html' import all_links %}
+    {{ all_links() }}
+
+{% endblock %}
+

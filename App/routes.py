@@ -35,6 +35,28 @@ def travelExpense(recordNo):
     travelExpense = serialize.serTravelExpensesStarCampaigners(contract.functions.getERecTravelExpensesStarCampaigners(recordNo).call())
     return render_template('travelExpense.html', travelExpense=travelExpense)
 
+@app.route('/mediaExpense/<int:recordNo>')
+def mediaExpense(recordNo):
+
+    hello = "Hello get record count"
+    mediaExpense = serialize.serExpensesOnMediaAd(contract.functions.getERecExpensesOnMediaAd(recordNo).call())
+    return render_template('mediaExpense.html', mediaExpense=mediaExpense)
+
+@app.route('/publicityExpense/<int:recordNo>')
+def publicityExpense(recordNo):
+
+    hello = "Hello get record count"
+    publicityExpense = serialize.serExpensesOnPublicityMaterial(contract.functions.getERecExpensesOnPublicityMaterial(recordNo).call())
+    return render_template('publicityExpense.html', publicityExpense=publicityExpense)
+
+@app.route('/publicMeeting/<int:recordNo>')
+def publicMeeting(recordNo):
+
+    hello = "Hello get record count"
+    publicMeeting = serialize.serExpensesOnPublicMeetings(contract.functions.getERecExpensesOnPublicMeetings(recordNo).call())
+    return render_template('publicMeeting.html', publicMeeting=publicMeeting)
+
+
 """
 @app.route('/login', methods=['GET', 'POST'])
 def login():

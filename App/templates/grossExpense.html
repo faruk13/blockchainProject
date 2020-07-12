@@ -15,18 +15,9 @@
     <h3>Cheque Amount: {{ grossReceipt.gross_receipt.cheque_amount }}</h3>
     <p>{{ grossReceipt }}</p>
 
+    {% from 'macros.html' import all_links %}
+    {{ all_links() }}
 
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-plus"></span> Index </a>
-        </button>
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('openingBalance', recordNo=2) }}"><span class="glyphicon glyphicon-gift"></span> openingBalance </a>
-        </button>
-        <button type="button" class="btn btn-default">
-            <a href = "{{ url_for('grossExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Gross Expense </a>
-        </button>
-    </div>
 
 {% endblock %}
 

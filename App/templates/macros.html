@@ -1,0 +1,27 @@
+
+
+{% macro all_links() %}
+<div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-plus"></span> Index </a>
+    </button>
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('openingBalance', recordNo=1) }}"><span class="glyphicon glyphicon-gift"></span> Opening Balance </a>
+    </button>
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('grossExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Gross Expense </a>
+    </button>
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('travelExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Travel Expense </a>
+    </button>
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('mediaExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Media Expense </a>
+    </button>
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('publicityExpense', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Publicity Expense </a>
+    </button>
+    <button type="button" class="btn btn-default">
+        <a href = "{{ url_for('publicMeeting', recordNo=1) }}"><span class="glyphicon glyphicon-sunglasses"></span> Public Meeting </a>
+    </button>
+</div>
+{% endmacro %}
