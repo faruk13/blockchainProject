@@ -4,8 +4,39 @@
 
 {% block app_content %}
 
-    <p>{{ hello }}</p>
-    <p>Total records: {{ rec_count }}</p>
+    <p>{{ recordList }}</p>
+    <h3 class="text-default"><span class="glyphicon glyphicon-th-list"></span> Blockchain Contract deployed to Address: {{contract_address}}</h3>
+    <h3 class="text-default"><span class="glyphicon glyphicon-th-list"></span> Your Ethereum Account Address: {{account_address}}</h3>
+
+    <blockquote>Total records: {{ rec_count }}</blockquote>
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Election Records:</h3>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+           <tr>
+            <th>Election Record Id</th>
+            <th>Political Party Election Records</th>
+           </tr>
+        </thead>
+
+        <tbody>
+            {% for p in recordList %}
+            {% set partyRecordLink = p.election_name + " "+ p.unit_hq + " "+ p.party_name %}
+            <tr>
+                <td>{{ loop.index0+1 }}</td>
+                <td>
+                    <a href="{{ url_for('openingBalance', recordNo=loop.index0+1) }}" >{{ partyRecordLink }}</a>
+                    {% if p.verified == true %}
+                    <span class="label label-info">Verified By Election Authority</span>
+                    {% else %}
+                    <span class="label label-danger">Not Verified Yet</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 
     {{ all_links() }}
 

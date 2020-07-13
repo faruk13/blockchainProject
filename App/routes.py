@@ -8,8 +8,31 @@ from App import serializer as serialize
 def index():
 
     rec_count = contract.functions.getERecCount().call()
-    #party = contract.functions.getERecPartyName(recordNo).call()
-    return render_template('index.html' ,title='Election Records in Blockchain', rec_count=rec_count)
+    recordList = []
+    contract_address = app.config['CONTRACT_ADDRESS']
+    account_address = app.config['SENDER_ACCOUNT_ADDRESS']
+    for i in range(1, rec_count+1):
+        partyName = contract.functions.getERecPartyName(i).call()
+        electionName = contract.functions.getERecElectionName(i).call()
+        unitHQ = contract.functions.getERecUnitHQ(i).call()
+        verifiedByECAgent = contract.functions.getERecVerifiedByECAgent(i).call()
+        dictStruct = {
+            'party_name' : partyName,
+            'election_name' : electionName,
+            'unit_hq' : unitHQ,
+            'verified' : verifiedByECAgent
+        }
+        recordList.append(dictStruct)
+
+
+    return render_template(
+        'index.html',
+        title='Election Records in Blockchain',
+        rec_count=rec_count,
+        recordList=recordList,
+        account_address=account_address,
+        contract_address=contract_address
+    )
 
 
 @app.route('/openingBalance/<int:recordNo>')

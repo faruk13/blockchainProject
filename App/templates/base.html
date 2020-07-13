@@ -40,7 +40,32 @@
 
         {% block app_content %}{% endblock %}
     </div>
+
+    {% block footer %}
+
+    <footer class="footer">
+        <div class="container" align="center">
+            <br>
+
+            <span class="text-muted grey-text text-darken-4">&copy; Powered by </span>
+            <span class="black-text text-darken-4" style='font-size:18px'>Ethereum </span>
+            <i class="fab fa-ethereum" style='font-size:18px'></i>
+            <span class="black-text text-darken-4" style='font-size:18px'> + Flask + web3Py</span>
+
+            <i class="fab fa-ethereum"></i>
+        </div>
+
+    </footer>
+    {% endblock footer %}
 {% endblock %}
 
+{% block scripts %}
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+{{super()}}
+{% endblock %}
 
-
+{% block styles %}
+{{super()}}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock %}
