@@ -11,7 +11,7 @@ contract = web3.eth.contract(address= contract_address , abi=contract_abi)
 
 ##ElectionCampaign
 #tx_hash = contract.functions.addElectionRecord(1,'p1','state-election','state-unit',2121,32424,'B1',34234).transact()
-tx_hash = contract.functions.addElectionRecord('p1','state-election','state-unit',2121,32424,'B1',34234).transact()
+tx_hash = contract.functions.addElectionRecord('p1','state-election','state-unit',2121,32424,'B1',34234, False).transact()
 
 print(web3.toHex(tx_hash))
 print("rec")
@@ -98,7 +98,7 @@ print(contract.functions.getERecTravelExpensesStarCampaigners(1).call())
 print("get record count")
 print(contract.functions.getERecCount().call())
 #tx_hash = contract.functions.addElectionRecord(2,'p2','state-election','center-unit',1112121,99932424,'B112',3424234).transact()
-tx_hash = contract.functions.addElectionRecord('p2','state-election','center-unit',1112121,99932424,'B112',3424234).transact()
+tx_hash = contract.functions.addElectionRecord('p2','state-election','center-unit',1112121,99932424,'B112',3424234,True).transact()
 print(web3.toHex(tx_hash))
 print("add record 2")
 print("get record count")

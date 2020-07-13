@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, session
 from App import app
-from App.contracts import contract
+from App.contracts import contract, web3
+from App.forms import *
 from App import serializer as serialize
 
 @app.route('/')
@@ -77,6 +78,26 @@ def publicMeeting(recordNo):
     party = contract.functions.getERecPartyName(recordNo).call()
     publicMeeting = serialize.serExpensesOnPublicMeetings(contract.functions.getERecExpensesOnPublicMeetings(recordNo).call())
     return render_template('publicMeeting.html', party=party, publicMeeting=publicMeeting)
+
+@app.route('/addElectionRecord',  methods=['GET', 'POST'])
+def addElectionRecord():
+    form = ElectionRecordForm()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addElectionRecord(
+            form.partyName.data,
+            form.electionName.data,
+            form.unitHQ.data,
+            form.cash.data,
+            form.otherDeposits.data,
+            form.bankName.data,
+            form.bankAmount.data,
+            form.verified.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("New Election Record added for "+form.partyName.data+". Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addElectionRecord.html',  title='New Election Record', form=form)
 
 
 """

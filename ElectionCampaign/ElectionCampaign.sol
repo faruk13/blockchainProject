@@ -73,7 +73,8 @@ contract ElectionCampaign {
         uint256 _c,
         uint256 _oD,
 		string memory _bName,
-        uint256 _bAmt
+        uint256 _bAmt,
+		bool verified
 		) public {
 			uint _id = ++recordCount;
 			records[_id].Id = _id;
@@ -87,9 +88,13 @@ contract ElectionCampaign {
 				bankAmount: _bAmt
 			});
 			records[_id].opBal.bankBalances.push(b);
-			records[_id].verifiedByECAgent = false;
+			records[_id].verifiedByECAgent = verified;
+	}
 
-
+	function addVerificationForElectionRecord(uint _id)
+	public
+	{
+		records[_id].verifiedByECAgent = true;
 	}
 
 	function getElectionRecord(uint _id) public view returns(
