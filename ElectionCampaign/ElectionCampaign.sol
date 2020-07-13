@@ -50,6 +50,8 @@ contract ElectionCampaign {
 	}
 	struct ElectionRecord {
 		uint Id;
+		string electionName;
+		string unitHQ;
 		string partyName;
 		OpeningBalance opBal;
 		GrossReceipt grRec;
@@ -66,6 +68,8 @@ contract ElectionCampaign {
 	function addElectionRecord(
 		uint _id,
 		string memory _pName,
+		string memory _electionName,
+		string memory _unitHQ,
         uint256 _c,
         uint256 _oD,
 		string memory _bName,
@@ -73,6 +77,8 @@ contract ElectionCampaign {
 		) public {
 			records[_id].Id = _id;
 			records[_id].partyName = _pName;
+			records[_id].electionName = _electionName;
+			records[_id].unitHQ = _unitHQ;
 			records[_id].opBal.cash = _c;
 			records[_id].opBal.otherDeposits = _oD;
 			OpeningBankBalance memory b = OpeningBankBalance({
@@ -223,6 +229,18 @@ contract ElectionCampaign {
 	public view returns(string)
     {
 		return records[_id].partyName;
+	}
+
+	function getERecElectionName(uint _id)
+	public view returns(string)
+    {
+		return records[_id].electionName;
+	}
+
+	function getERecUnitHQ(uint _id)
+	public view returns(string)
+    {
+		return records[_id].unitHQ;
 	}
 
 	function getERecOpeningBalance(uint _id)
