@@ -66,7 +66,7 @@ contract ElectionCampaign {
 	uint256 recordCount = 0;
 
 	function addElectionRecord(
-		uint _id,
+		//uint _id,
 		string memory _pName,
 		string memory _electionName,
 		string memory _unitHQ,
@@ -75,6 +75,7 @@ contract ElectionCampaign {
 		string memory _bName,
         uint256 _bAmt
 		) public {
+			uint _id = ++recordCount;
 			records[_id].Id = _id;
 			records[_id].partyName = _pName;
 			records[_id].electionName = _electionName;
@@ -88,7 +89,7 @@ contract ElectionCampaign {
 			records[_id].opBal.bankBalances.push(b);
 			records[_id].verifiedByECAgent = false;
 
-			recordCount++;
+
 	}
 
 	function getElectionRecord(uint _id) public view returns(
