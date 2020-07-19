@@ -4,9 +4,7 @@
 
 {% block app_content %}
 
-    <p>{{ recordList }}</p>
-    <h3 class="text-default"><span class="glyphicon glyphicon-th-list"></span> Blockchain Contract deployed to Address: {{contract_address}}</h3>
-    <h3 class="text-default"><span class="glyphicon glyphicon-th-list"></span> Your Ethereum Account Address: {{account_address}}</h3>
+    <!--<p>{{ recordList }}</p>-->
 
     <blockquote>Total records in Blockchain: {{ rec_count }}</blockquote>
     {{ add_record_links(is_admin) }}
@@ -36,9 +34,11 @@
             {% endfor %}
         </tbody>
     </table>
+    <h3 class="text-primary"><span class="glyphicon glyphicon-book"></span> Blockchain Contract Address: <span class="text-danger">{{contract_address}}</span></h3>
+    <h3 class="text-primary"><i class="fab fa-ethereum" style="font-size:32px"></i> Ethereum Account Address: <span class="text-success">{{account_address}}</span></h3>
 
 
-    {{ all_links() }}
+    {{ all_links(recordNo=1) }}
 
 
 

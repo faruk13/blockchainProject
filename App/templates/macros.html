@@ -1,36 +1,34 @@
 
 
-{% macro all_links(partyName=None) %}
-{% if partyName == "p2" %}
-{% set recordNo=2 %}
-{% else %}
-{% set recordNo=1 %}
-{% endif %}
+{% macro all_links(recordNo=1) %}
 
-
+<br>
+<div class="container" align="center">
 <div class="btn-group" role="group" aria-label="...">
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-plus"></span> Index </a>
+        <a href = "{{ url_for('index') }}"><span class="glyphicon glyphicon-leaf"></span> Home Page </a>
     </button>
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('openingBalance', recordNo=recordNo) }}"><span class="glyphicon glyphicon-gift"></span> Opening Balance </a>
+        <a href = "{{ url_for('openingBalance', recordNo=recordNo) }}"><span class="glyphicon glyphicon-book"></span> Opening Balance </a>
     </button>
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('grossExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-sunglasses"></span> Gross Expense </a>
+        <a href = "{{ url_for('grossExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-book"></span> Gross Expense </a>
     </button>
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('travelExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-sunglasses"></span> Travel Expense </a>
+        <a href = "{{ url_for('travelExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-book"></span> Travel Expense </a>
     </button>
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('mediaExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-sunglasses"></span> Media Expense </a>
+        <a href = "{{ url_for('mediaExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-book"></span> Media Expense </a>
     </button>
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('publicityExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-sunglasses"></span> Publicity Expense </a>
+        <a href = "{{ url_for('publicityExpense', recordNo=recordNo) }}"><span class="glyphicon glyphicon-book"></span> Publicity Expense </a>
     </button>
     <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('publicMeeting', recordNo=recordNo) }}"><span class="glyphicon glyphicon-sunglasses"></span> Public Meeting </a>
+        <a href = "{{ url_for('publicMeeting', recordNo=recordNo) }}"><span class="glyphicon glyphicon-book"></span> Public Meeting </a>
     </button>
 </div>
+</div>
+<br>
 {% endmacro %}
 
 
@@ -46,15 +44,15 @@
         </li>
         <li>    <a href = "{{ url_for('updateOpeningBankBalance') }}"><span class="glyphicon glyphicon-plus"></span> Update OpeningBankBalance </a>
         </li>
-        <li>    <a href = "{{ url_for('addGrossReceipt') }}"><span class="glyphicon glyphicon-gift"></span> Add Gross Receipt </a>
+        <li>    <a href = "{{ url_for('addGrossReceipt') }}"><span class="glyphicon glyphicon-plus"></span> Add Gross Receipt </a>
         </li>
-        <li>    <a href = "{{ url_for('addGrossExpenditure') }}"><span class="glyphicon glyphicon-sunglasses"></span> Add Gross Expenditure </a>
+        <li>    <a href = "{{ url_for('addGrossExpenditure') }}"><span class="glyphicon glyphicon-plus"></span> Add Gross Expenditure </a>
         </li>
-        <li>    <a href = "{{ url_for('addExpensesOnMediaAd') }}"><span class="glyphicon glyphicon-sunglasses"></span> Add Expenses MediaAd </a>
+        <li>    <a href = "{{ url_for('addExpensesOnMediaAd') }}"><span class="glyphicon glyphicon-plus"></span> Add Expenses MediaAd </a>
         </li>
-        <li>    <a href = "{{ url_for('addExpensesOnPublicityMaterial') }}"><span class="glyphicon glyphicon-sunglasses"></span> Add Expenses Publicity Material</a>
+        <li>    <a href = "{{ url_for('addExpensesOnPublicityMaterial') }}"><span class="glyphicon glyphicon-plus"></span> Add Expenses Publicity Material</a>
         </li>
-        <li>    <a href = "{{ url_for('addExpensesOnPublicMeetings') }}"><span class="glyphicon glyphicon-sunglasses"></span> Add Expenses Public Meetings </a>
+        <li>    <a href = "{{ url_for('addExpensesOnPublicMeetings') }}"><span class="glyphicon glyphicon-plus"></span> Add Expenses Public Meetings </a>
         </li>
     </ul>
   </div>
@@ -62,8 +60,9 @@
   {% endif %}
 {% endmacro %}
 
-{% macro party_name(partyName) %}
-<h3 class="text-danger"><span class="glyphicon glyphicon-globe"></span> Political Party: </h3>
-<h3>{{ partyName }}</h3>
+{% macro party_name(party) %}
+<h3 class="text-danger"><span class="glyphicon glyphicon-globe"></span> Campaign Record:
+    <span class="text-success">{{ party.election_name + " "+ party.party_name + " "+ party.unit_hq }}</span>
+</h3>
 
 {% endmacro %}

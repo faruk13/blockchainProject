@@ -12,6 +12,19 @@ def not_admin_msg():
 
     return None
 
+def campaign_record(recordNo):
+    partyName = contract.functions.getERecPartyName(recordNo).call()
+    electionName = contract.functions.getERecElectionName(recordNo).call()
+    unitHQ = contract.functions.getERecUnitHQ(recordNo).call()
+    verifiedByECAgent = contract.functions.getERecVerifiedByECAgent(recordNo).call()
+    dictStruct = {
+            'party_name' : partyName,
+            'election_name' : electionName,
+            'unit_hq' : unitHQ,
+            'verified' : verifiedByECAgent
+    }
+    return dictStruct
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -20,18 +33,7 @@ def index():
     recordList = []
 
     for i in range(1, rec_count+1):
-        partyName = contract.functions.getERecPartyName(i).call()
-        electionName = contract.functions.getERecElectionName(i).call()
-        unitHQ = contract.functions.getERecUnitHQ(i).call()
-        verifiedByECAgent = contract.functions.getERecVerifiedByECAgent(i).call()
-        dictStruct = {
-            'party_name' : partyName,
-            'election_name' : electionName,
-            'unit_hq' : unitHQ,
-            'verified' : verifiedByECAgent
-        }
-        recordList.append(dictStruct)
-
+        recordList.append(campaign_record(i))
 
     return render_template(
         'index.html',
@@ -47,45 +49,45 @@ def index():
 @app.route('/openingBalance/<int:recordNo>')
 def openingBalance(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     openingBalance = serialize.serOpeningBalance(contract.functions.getERecOpeningBalance(recordNo).call())
-    return render_template('openingBalance.html', party=party, openingBalance=openingBalance)
+    return render_template('openingBalance.html', party=party, openingBalance=openingBalance, recordNo=recordNo)
 
 @app.route('/grossExpense/<int:recordNo>')
 def grossExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     grossReceipt = serialize.serGrossReceipt(contract.functions.getERecGrossReceipt(recordNo).call())
     grossExpenditure = serialize.serGrossExpenditure(contract.functions.getERecGrossExpenditure(recordNo).call())
-    return render_template('grossExpense.html', party=party, grossReceipt=grossReceipt, grossExpenditure=grossExpenditure)
+    return render_template('grossExpense.html', party=party, grossReceipt=grossReceipt, grossExpenditure=grossExpenditure, recordNo=recordNo)
 
 @app.route('/travelExpense/<int:recordNo>')
 def travelExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     travelExpense = serialize.serTravelExpensesStarCampaigners(contract.functions.getERecTravelExpensesStarCampaigners(recordNo).call())
-    return render_template('travelExpense.html', party=party, travelExpense=travelExpense)
+    return render_template('travelExpense.html', party=party, travelExpense=travelExpense, recordNo=recordNo)
 
 @app.route('/mediaExpense/<int:recordNo>')
 def mediaExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     mediaExpense = serialize.serExpensesOnMediaAd(contract.functions.getERecExpensesOnMediaAd(recordNo).call())
-    return render_template('mediaExpense.html', party=party, mediaExpense=mediaExpense)
+    return render_template('mediaExpense.html', party=party, mediaExpense=mediaExpense, recordNo=recordNo)
 
 @app.route('/publicityExpense/<int:recordNo>')
 def publicityExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     publicityExpense = serialize.serExpensesOnPublicityMaterial(contract.functions.getERecExpensesOnPublicityMaterial(recordNo).call())
-    return render_template('publicityExpense.html', party=party, publicityExpense=publicityExpense)
+    return render_template('publicityExpense.html', party=party, publicityExpense=publicityExpense, recordNo=recordNo)
 
 @app.route('/publicMeeting/<int:recordNo>')
 def publicMeeting(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     publicMeeting = serialize.serExpensesOnPublicMeetings(contract.functions.getERecExpensesOnPublicMeetings(recordNo).call())
-    return render_template('publicMeeting.html', party=party, publicMeeting=publicMeeting)
+    return render_template('publicMeeting.html', party=party, publicMeeting=publicMeeting, recordNo=recordNo)
 
 @app.route('/addElectionRecord',  methods=['GET', 'POST'])
 def addElectionRecord():
@@ -121,9 +123,7 @@ def updateOpeningBankBalance():
         txHash = web3.toHex(tx_hash)
         flash("Opening Bank Balance updated! Transaction Hash: "+txHash, 'info')
         return redirect(url_for('index'))
-    # else:
-    #     flash("Cant update! not Admin", 'error')
-        #return redirect(url_for('updateOpeningBankBalance'))
+
     return render_template('updateOpeningBankBalance.html',  title='Update BankBalance', form=form)
 
 @app.route('/addGrossReceipt',  methods=['GET', 'POST'])
@@ -215,9 +215,6 @@ def addExpensesOnPublicMeetings():
         return redirect(url_for('index'))
 
     return render_template('addExpensesOnPublicMeetings.html',  title='Expenses On Public Meetings', form=form)
-
-
-
 
 
 
