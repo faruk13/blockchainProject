@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import all_links, party_name %}
+{% from 'macros.html' import all_links, party_name, add_record_links %}
 
 
 {% block app_content %}
@@ -8,9 +8,9 @@
     <h3 class="text-default"><span class="glyphicon glyphicon-th-list"></span> Blockchain Contract deployed to Address: {{contract_address}}</h3>
     <h3 class="text-default"><span class="glyphicon glyphicon-th-list"></span> Your Ethereum Account Address: {{account_address}}</h3>
 
-    <blockquote>Total records: {{ rec_count }}</blockquote>
+    <blockquote>Total records in Blockchain: {{ rec_count }}</blockquote>
+    {{ add_record_links() }}
     <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Election Records:</h3>
-
     <table class="table table-bordered table-hover">
         <thead>
            <tr>
@@ -37,12 +37,9 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-default">
-        <a href = "{{ url_for('addElectionRecord') }}"><span class="glyphicon glyphicon-plus"></span> Add New Election Campaign Record </a>
-    </button>
-
 
     {{ all_links() }}
+
 
 
 {% endblock %}

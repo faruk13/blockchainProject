@@ -1,8 +1,16 @@
 from flask import render_template, flash, redirect, url_for, session
 from App import app
-from App.contracts import contract, web3
+from App.contracts import contract, web3, sender_account, admin_check
 from App.forms import *
 from App import serializer as serialize
+
+
+def not_admin_msg():
+    if admin_check() == False:
+        not_auth_msg = "You are not authorized by Election Authority to add Election Campaign Records!"
+        flash(not_auth_msg)
+
+    return None
 
 @app.route('/')
 @app.route('/index')
@@ -10,8 +18,7 @@ def index():
 
     rec_count = contract.functions.getERecCount().call()
     recordList = []
-    contract_address = app.config['CONTRACT_ADDRESS']
-    account_address = app.config['SENDER_ACCOUNT_ADDRESS']
+
     for i in range(1, rec_count+1):
         partyName = contract.functions.getERecPartyName(i).call()
         electionName = contract.functions.getERecElectionName(i).call()
@@ -31,8 +38,8 @@ def index():
         title='Election Records in Blockchain',
         rec_count=rec_count,
         recordList=recordList,
-        account_address=account_address,
-        contract_address=contract_address
+        account_address=sender_account.address,
+        contract_address=contract.address
     )
 
 
@@ -82,6 +89,7 @@ def publicMeeting(recordNo):
 @app.route('/addElectionRecord',  methods=['GET', 'POST'])
 def addElectionRecord():
     form = ElectionRecordForm()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.addElectionRecord(
             form.partyName.data,
@@ -102,6 +110,7 @@ def addElectionRecord():
 @app.route('/updateOpeningBankBalance',  methods=['GET', 'POST'])
 def updateOpeningBankBalance():
     form = UpdateOpeningBankBalance()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.updateOpeningBankBalance(
             form.recordId.data,
@@ -111,12 +120,15 @@ def updateOpeningBankBalance():
         txHash = web3.toHex(tx_hash)
         flash("Opening Bank Balance updated! Transaction Hash: "+txHash, 'info')
         return redirect(url_for('index'))
-
+    # else:
+    #     flash("Cant update! not Admin", 'error')
+        #return redirect(url_for('updateOpeningBankBalance'))
     return render_template('updateOpeningBankBalance.html',  title='Update BankBalance', form=form)
 
 @app.route('/addGrossReceipt',  methods=['GET', 'POST'])
 def addGrossReceipt():
     form = AddGrossReceipt()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.addGrossReceipt(
             form.recordId.data,
@@ -132,6 +144,7 @@ def addGrossReceipt():
 @app.route('/addGrossExpenditure',  methods=['GET', 'POST'])
 def addGrossExpenditure():
     form = AddGrossExpenditure()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.addGrossExpenditure(
             form.recordId.data,
@@ -150,6 +163,7 @@ def addGrossExpenditure():
 @app.route('/addExpensesOnMediaAd',  methods=['GET', 'POST'])
 def addExpensesOnMediaAd():
     form = AddExpensesOnMediaAd()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.addExpensesOnMediaAd(
             form.recordId.data,
@@ -168,6 +182,7 @@ def addExpensesOnMediaAd():
 @app.route('/addExpensesOnPublicityMaterial',  methods=['GET', 'POST'])
 def addExpensesOnPublicityMaterial():
     form = AddExpensesOnPublicityMaterial()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.addExpensesOnPublicityMaterial(
             form.recordId.data,
@@ -185,6 +200,7 @@ def addExpensesOnPublicityMaterial():
 @app.route('/addExpensesOnPublicMeetings',  methods=['GET', 'POST'])
 def addExpensesOnPublicMeetings():
     form = AddExpensesOnPublicMeetings()
+    not_admin_msg()
     if form.validate_on_submit():
         tx_hash = contract.functions.addExpensesOnPublicMeetings(
             form.recordId.data,

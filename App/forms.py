@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms import IntegerField, DateField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ValidationError
+from App import app
+from App.contracts import sender_account, admin_check
+
+def validate_admin(form, field):
+    print(sender_account.address, app.config['ADMIN_ACCOUNT_ADDRESS'])
+    if admin_check() == False:
+        raise ValidationError('Only authorized Election Authority can add!')
 
 class ElectionRecordForm(FlaskForm):
     partyName = StringField('Party Name', validators=[DataRequired()])
@@ -12,26 +19,26 @@ class ElectionRecordForm(FlaskForm):
     bankName = StringField('Opening Bal: Bank Name', validators=[DataRequired()])
     bankAmount = IntegerField('Opening Bal: Bank Amount', validators=[DataRequired()])
     verified = BooleanField('Verified By Election Authority')
-    submit = SubmitField('Add new Election Record')
+    submit = SubmitField('Add new Election Record', validators=[validate_admin])
 
 class UpdateOpeningBankBalance(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
     bankName = StringField('Opening Bal: Bank Name', validators=[DataRequired()])
     bankAmount = IntegerField('Opening Bal: Bank Amount', validators=[DataRequired()])
-    submit = SubmitField('Update Opening Bank Balance')
+    submit = SubmitField('Update Opening Bank Balance', validators=[validate_admin])
 
 class AddGrossReceipt(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
     cash = IntegerField('Cash', validators=[DataRequired()])
     chequeAmount = IntegerField('Cash', validators=[DataRequired()])
-    submit = SubmitField('Add Gross Receipt')
+    submit = SubmitField('Add Gross Receipt', validators=[validate_admin])
 
 class AddGrossExpenditure(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
     cash = IntegerField('Cash', validators=[DataRequired()])
     chequeAmount = IntegerField('Cheque Amount', validators=[DataRequired()])
     draft = IntegerField('Draft', validators=[DataRequired()])
-    submit = SubmitField('Add Gross Expenditure')
+    submit = SubmitField('Add Gross Expenditure', validators=[validate_admin])
 
 # class AddTravelExpensesStarCampaigners(FlaskForm):
 #     recordId = IntegerField('RecordId', validators=[DataRequired()])
@@ -57,7 +64,7 @@ class AddExpensesOnMediaAd(FlaskForm):
     nameOfMedia = StringField('Name Of Media', validators=[DataRequired()])
     dateOfTelecast = StringField('Date Of Telecast', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
-    submit = SubmitField('Add Expenses On Media Ad')
+    submit = SubmitField('Add Expenses On Media Ad', validators=[validate_admin])
 
 class AddExpensesOnPublicityMaterial(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
@@ -65,7 +72,7 @@ class AddExpensesOnPublicityMaterial(FlaskForm):
     nameOfRegion = StringField('Name Of Region', validators=[DataRequired()])
     detailsOfItems = StringField('Details Of Items', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
-    submit = SubmitField('Add Expenses On Publicity Material')
+    submit = SubmitField('Add Expenses On Publicity Material', validators=[validate_admin])
 
 class AddExpensesOnPublicMeetings(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
@@ -73,7 +80,9 @@ class AddExpensesOnPublicMeetings(FlaskForm):
     dateOfMeeting = StringField('Date Of Meeting', validators=[DataRequired()])
     detailsOfItems = StringField('Details Of Items', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
-    submit = SubmitField('Add Expenses On Publicity Meeting')
+    submit = SubmitField('Add Expenses On Publicity Meeting', validators=[validate_admin])
+
+
 
 
 
