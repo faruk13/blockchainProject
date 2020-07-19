@@ -143,7 +143,8 @@ contract ElectionCampaign {
 		string memory _dOfMeet,
 		string memory _starCampaigner1,
 		string memory _mOfTr,
-		string memory _nOfPayee
+		string memory _nOfPayee,
+		uint256 _totExpenses
 	) public {
 
 		starC.push(_starCampaigner1);
@@ -154,8 +155,9 @@ contract ElectionCampaign {
 			starC,
 			_mOfTr,
 			_nOfPayee,
-			0
+			_totExpenses
 		);
+		//remove _trExpId dependency and add all star campaigners at once
 		delete starC;
 		records[_recordId].trExpStCam.push(trExp);
 		if (records[_recordId].trExpStCam.length == 0){

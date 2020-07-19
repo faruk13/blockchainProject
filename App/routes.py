@@ -99,6 +99,124 @@ def addElectionRecord():
 
     return render_template('addElectionRecord.html',  title='New Election Record', form=form)
 
+@app.route('/updateOpeningBankBalance',  methods=['GET', 'POST'])
+def updateOpeningBankBalance():
+    form = UpdateOpeningBankBalance()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.updateOpeningBankBalance(
+            form.recordId.data,
+            form.bankName.data,
+            form.bankAmount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Opening Bank Balance updated! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('updateOpeningBankBalance.html',  title='Update BankBalance', form=form)
+
+@app.route('/addGrossReceipt',  methods=['GET', 'POST'])
+def addGrossReceipt():
+    form = AddGrossReceipt()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addGrossReceipt(
+            form.recordId.data,
+            form.cash.data,
+            form.chequeAmount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Gross Receipts added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addGrossReceipt.html',  title='Gross Receipts', form=form)
+
+@app.route('/addGrossExpenditure',  methods=['GET', 'POST'])
+def addGrossExpenditure():
+    form = AddGrossExpenditure()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addGrossExpenditure(
+            form.recordId.data,
+            form.cash.data,
+            form.chequeAmount.data,
+            form.draft.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Gross Expenditure added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addGrossExpenditure.html',  title='Gross Expenditure', form=form)
+
+# add travel expenses
+
+@app.route('/addExpensesOnMediaAd',  methods=['GET', 'POST'])
+def addExpensesOnMediaAd():
+    form = AddExpensesOnMediaAd()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addExpensesOnMediaAd(
+            form.recordId.data,
+            form.stateAndVenue.data,
+            form.nameOfPayee.data,
+            form.nameOfMedia.data,
+            form.dateOfTelecast.data,
+            form.amount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Expenses On MediaAd added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addExpensesOnMediaAd.html',  title='Expenses On MediaAd', form=form)
+
+@app.route('/addExpensesOnPublicityMaterial',  methods=['GET', 'POST'])
+def addExpensesOnPublicityMaterial():
+    form = AddExpensesOnPublicityMaterial()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addExpensesOnPublicityMaterial(
+            form.recordId.data,
+            form.stateAndVenue.data,
+            form.nameOfRegion.data,
+            form.detailsOfItems.data,
+            form.amount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Expenses On Publicity Material added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addExpensesOnPublicityMaterial.html',  title='Expenses On Publicity Material', form=form)
+
+@app.route('/addExpensesOnPublicMeetings',  methods=['GET', 'POST'])
+def addExpensesOnPublicMeetings():
+    form = AddExpensesOnPublicMeetings()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addExpensesOnPublicMeetings(
+            form.recordId.data,
+            form.stateAndVenue.data,
+            form.dateOfMeeting.data,
+            form.detailsOfItems.data,
+            form.amount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Expenses On Public Meetings added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addExpensesOnPublicMeetings.html',  title='Expenses On Public Meetings', form=form)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """
 @app.route('/login', methods=['GET', 'POST'])
