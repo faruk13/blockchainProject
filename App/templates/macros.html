@@ -34,8 +34,9 @@
 {% endmacro %}
 
 
-{% macro add_record_links() %}
+{% macro add_record_links(is_admin=False) %}
 
+{% if is_admin == True %}
 <div class="btn-group">
     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Add Election Records <span class="caret"></span>
@@ -58,6 +59,7 @@
     </ul>
   </div>
   <br>
+  {% endif %}
 {% endmacro %}
 
 {% macro party_name(partyName) %}

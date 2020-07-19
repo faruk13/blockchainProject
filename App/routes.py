@@ -39,7 +39,8 @@ def index():
         rec_count=rec_count,
         recordList=recordList,
         account_address=sender_account.address,
-        contract_address=contract.address
+        contract_address=contract.address,
+        is_admin=admin_check()
     )
 
 
