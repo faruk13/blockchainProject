@@ -50,6 +50,8 @@ contract ElectionCampaign {
 	}
 	struct ElectionRecord {
 		uint Id;
+		string electionName;
+		string unitHQ;
 		string partyName;
 		OpeningBalance opBal;
 		GrossReceipt grRec;
@@ -64,15 +66,21 @@ contract ElectionCampaign {
 	uint256 recordCount = 0;
 
 	function addElectionRecord(
-		uint _id,
+		//uint _id,
 		string memory _pName,
+		string memory _electionName,
+		string memory _unitHQ,
         uint256 _c,
         uint256 _oD,
 		string memory _bName,
-        uint256 _bAmt
+        uint256 _bAmt,
+		bool verified
 		) public {
+			uint _id = ++recordCount;
 			records[_id].Id = _id;
 			records[_id].partyName = _pName;
+			records[_id].electionName = _electionName;
+			records[_id].unitHQ = _unitHQ;
 			records[_id].opBal.cash = _c;
 			records[_id].opBal.otherDeposits = _oD;
 			OpeningBankBalance memory b = OpeningBankBalance({
@@ -80,9 +88,13 @@ contract ElectionCampaign {
 				bankAmount: _bAmt
 			});
 			records[_id].opBal.bankBalances.push(b);
-			records[_id].verifiedByECAgent = false;
+			records[_id].verifiedByECAgent = verified;
+	}
 
-			recordCount++;
+	function addVerificationForElectionRecord(uint _id)
+	public
+	{
+		records[_id].verifiedByECAgent = true;
 	}
 
 	function getElectionRecord(uint _id) public view returns(
@@ -131,7 +143,8 @@ contract ElectionCampaign {
 		string memory _dOfMeet,
 		string memory _starCampaigner1,
 		string memory _mOfTr,
-		string memory _nOfPayee
+		string memory _nOfPayee,
+		uint256 _totExpenses
 	) public {
 
 		starC.push(_starCampaigner1);
@@ -142,8 +155,9 @@ contract ElectionCampaign {
 			starC,
 			_mOfTr,
 			_nOfPayee,
-			0
+			_totExpenses
 		);
+		//remove _trExpId dependency and add all star campaigners at once
 		delete starC;
 		records[_recordId].trExpStCam.push(trExp);
 		if (records[_recordId].trExpStCam.length == 0){
@@ -223,6 +237,18 @@ contract ElectionCampaign {
 	public view returns(string)
     {
 		return records[_id].partyName;
+	}
+
+	function getERecElectionName(uint _id)
+	public view returns(string)
+    {
+		return records[_id].electionName;
+	}
+
+	function getERecUnitHQ(uint _id)
+	public view returns(string)
+    {
+		return records[_id].unitHQ;
 	}
 
 	function getERecOpeningBalance(uint _id)

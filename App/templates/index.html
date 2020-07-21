@@ -1,13 +1,45 @@
 {% extends "base.html" %}
-{% from 'macros.html' import all_links, party_name %}
+{% from 'macros.html' import all_links, party_name, add_record_links %}
 
 
 {% block app_content %}
 
-    <p>{{ hello }}</p>
-    <p>Total records: {{ rec_count }}</p>
+    <!--<p>{{ recordList }}</p>-->
 
-    {{ all_links() }}
+    <blockquote>Total records in Blockchain: {{ rec_count }}</blockquote>
+    {{ add_record_links(is_admin) }}
+    <h3 class="text-danger"><span class="glyphicon glyphicon-th-list"></span> Election Records:</h3>
+    <table class="table table-bordered table-hover">
+        <thead>
+           <tr>
+            <th>Election Record Id</th>
+            <th>Political Party Election Records</th>
+           </tr>
+        </thead>
+
+        <tbody>
+            {% for p in recordList %}
+            {% set partyRecordLink = p.election_name + " "+ p.unit_hq + " "+ p.party_name %}
+            <tr>
+                <td>{{ loop.index0+1 }}</td>
+                <td>
+                    <a href="{{ url_for('openingBalance', recordNo=loop.index0+1) }}" >{{ partyRecordLink }}</a>
+                    {% if p.verified == true %}
+                    <span class="label label-info">Verified By Election Authority</span>
+                    {% else %}
+                    <span class="label label-danger">Not Verified Yet</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3 class="text-primary"><span class="glyphicon glyphicon-book"></span> Blockchain Contract Address: <span class="text-danger">{{contract_address}}</span></h3>
+    <h3 class="text-primary"><i class="fab fa-ethereum" style="font-size:32px"></i> Ethereum Account Address: <span class="text-success">{{account_address}}</span></h3>
+
+
+    {{ all_links(recordNo=1) }}
+
 
 
 {% endblock %}

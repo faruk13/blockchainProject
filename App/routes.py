@@ -1,59 +1,235 @@
 from flask import render_template, flash, redirect, url_for, session
 from App import app
-from App.contracts import contract
+from App.contracts import contract, web3, sender_account, admin_check
+from App.forms import *
 from App import serializer as serialize
+
+
+def not_admin_msg():
+    if admin_check() == False:
+        not_auth_msg = "You are not authorized by Election Authority to add Election Campaign Records!"
+        flash(not_auth_msg)
+
+    return None
+
+def campaign_record(recordNo):
+    partyName = contract.functions.getERecPartyName(recordNo).call()
+    electionName = contract.functions.getERecElectionName(recordNo).call()
+    unitHQ = contract.functions.getERecUnitHQ(recordNo).call()
+    verifiedByECAgent = contract.functions.getERecVerifiedByECAgent(recordNo).call()
+    dictStruct = {
+            'party_name' : partyName,
+            'election_name' : electionName,
+            'unit_hq' : unitHQ,
+            'verified' : verifiedByECAgent
+    }
+    return dictStruct
 
 @app.route('/')
 @app.route('/index')
 def index():
 
     rec_count = contract.functions.getERecCount().call()
-    #party = contract.functions.getERecPartyName(recordNo).call()
-    return render_template('index.html' ,title='Election Records in Blockchain', rec_count=rec_count)
+    recordList = []
+
+    for i in range(1, rec_count+1):
+        recordList.append(campaign_record(i))
+
+    return render_template(
+        'index.html',
+        title='Election Records in Blockchain',
+        rec_count=rec_count,
+        recordList=recordList,
+        account_address=sender_account.address,
+        contract_address=contract.address,
+        is_admin=admin_check()
+    )
 
 
 @app.route('/openingBalance/<int:recordNo>')
 def openingBalance(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     openingBalance = serialize.serOpeningBalance(contract.functions.getERecOpeningBalance(recordNo).call())
-    return render_template('openingBalance.html', party=party, openingBalance=openingBalance)
+    return render_template('openingBalance.html', party=party, openingBalance=openingBalance, recordNo=recordNo)
 
 @app.route('/grossExpense/<int:recordNo>')
 def grossExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     grossReceipt = serialize.serGrossReceipt(contract.functions.getERecGrossReceipt(recordNo).call())
     grossExpenditure = serialize.serGrossExpenditure(contract.functions.getERecGrossExpenditure(recordNo).call())
-    return render_template('grossExpense.html', party=party, grossReceipt=grossReceipt, grossExpenditure=grossExpenditure)
+    return render_template('grossExpense.html', party=party, grossReceipt=grossReceipt, grossExpenditure=grossExpenditure, recordNo=recordNo)
 
 @app.route('/travelExpense/<int:recordNo>')
 def travelExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     travelExpense = serialize.serTravelExpensesStarCampaigners(contract.functions.getERecTravelExpensesStarCampaigners(recordNo).call())
-    return render_template('travelExpense.html', party=party, travelExpense=travelExpense)
+    return render_template('travelExpense.html', party=party, travelExpense=travelExpense, recordNo=recordNo)
 
 @app.route('/mediaExpense/<int:recordNo>')
 def mediaExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     mediaExpense = serialize.serExpensesOnMediaAd(contract.functions.getERecExpensesOnMediaAd(recordNo).call())
-    return render_template('mediaExpense.html', party=party, mediaExpense=mediaExpense)
+    return render_template('mediaExpense.html', party=party, mediaExpense=mediaExpense, recordNo=recordNo)
 
 @app.route('/publicityExpense/<int:recordNo>')
 def publicityExpense(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     publicityExpense = serialize.serExpensesOnPublicityMaterial(contract.functions.getERecExpensesOnPublicityMaterial(recordNo).call())
-    return render_template('publicityExpense.html', party=party, publicityExpense=publicityExpense)
+    return render_template('publicityExpense.html', party=party, publicityExpense=publicityExpense, recordNo=recordNo)
 
 @app.route('/publicMeeting/<int:recordNo>')
 def publicMeeting(recordNo):
 
-    party = contract.functions.getERecPartyName(recordNo).call()
+    party = campaign_record(recordNo)
     publicMeeting = serialize.serExpensesOnPublicMeetings(contract.functions.getERecExpensesOnPublicMeetings(recordNo).call())
-    return render_template('publicMeeting.html', party=party, publicMeeting=publicMeeting)
+    return render_template('publicMeeting.html', party=party, publicMeeting=publicMeeting, recordNo=recordNo)
+
+@app.route('/addElectionRecord',  methods=['GET', 'POST'])
+def addElectionRecord():
+    form = ElectionRecordForm()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addElectionRecord(
+            form.partyName.data,
+            form.electionName.data,
+            form.unitHQ.data,
+            form.cash.data,
+            form.otherDeposits.data,
+            form.bankName.data,
+            form.bankAmount.data,
+            form.verified.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("New Election Record added for "+form.partyName.data+". Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addElectionRecord.html',  title='New Election Record', form=form)
+
+@app.route('/updateOpeningBankBalance',  methods=['GET', 'POST'])
+def updateOpeningBankBalance():
+    form = UpdateOpeningBankBalance()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.updateOpeningBankBalance(
+            form.recordId.data,
+            form.bankName.data,
+            form.bankAmount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Opening Bank Balance updated! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('updateOpeningBankBalance.html',  title='Update BankBalance', form=form)
+
+@app.route('/addGrossReceipt',  methods=['GET', 'POST'])
+def addGrossReceipt():
+    form = AddGrossReceipt()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addGrossReceipt(
+            form.recordId.data,
+            form.cash.data,
+            form.chequeAmount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Gross Receipts added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addGrossReceipt.html',  title='Gross Receipts', form=form)
+
+@app.route('/addGrossExpenditure',  methods=['GET', 'POST'])
+def addGrossExpenditure():
+    form = AddGrossExpenditure()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addGrossExpenditure(
+            form.recordId.data,
+            form.cash.data,
+            form.chequeAmount.data,
+            form.draft.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Gross Expenditure added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addGrossExpenditure.html',  title='Gross Expenditure', form=form)
+
+# add travel expenses
+
+@app.route('/addExpensesOnMediaAd',  methods=['GET', 'POST'])
+def addExpensesOnMediaAd():
+    form = AddExpensesOnMediaAd()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addExpensesOnMediaAd(
+            form.recordId.data,
+            form.stateAndVenue.data,
+            form.nameOfPayee.data,
+            form.nameOfMedia.data,
+            form.dateOfTelecast.data,
+            form.amount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Expenses On MediaAd added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addExpensesOnMediaAd.html',  title='Expenses On MediaAd', form=form)
+
+@app.route('/addExpensesOnPublicityMaterial',  methods=['GET', 'POST'])
+def addExpensesOnPublicityMaterial():
+    form = AddExpensesOnPublicityMaterial()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addExpensesOnPublicityMaterial(
+            form.recordId.data,
+            form.stateAndVenue.data,
+            form.nameOfRegion.data,
+            form.detailsOfItems.data,
+            form.amount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Expenses On Publicity Material added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addExpensesOnPublicityMaterial.html',  title='Expenses On Publicity Material', form=form)
+
+@app.route('/addExpensesOnPublicMeetings',  methods=['GET', 'POST'])
+def addExpensesOnPublicMeetings():
+    form = AddExpensesOnPublicMeetings()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addExpensesOnPublicMeetings(
+            form.recordId.data,
+            form.stateAndVenue.data,
+            form.dateOfMeeting.data,
+            form.detailsOfItems.data,
+            form.amount.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Expenses On Public Meetings added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addExpensesOnPublicMeetings.html',  title='Expenses On Public Meetings', form=form)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 """
