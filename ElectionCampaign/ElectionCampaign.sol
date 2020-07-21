@@ -233,6 +233,12 @@ contract ElectionCampaign {
 		return recordCount;
 	}
 
+	function getERecStarCampaignersCount(uint _id)
+	public view returns(uint256)
+	{
+		return records[_id].trExpStCam.length;
+	}
+
 	function getERecPartyName(uint _id)
 	public view returns(string)
     {

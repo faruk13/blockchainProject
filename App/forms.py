@@ -40,22 +40,22 @@ class AddGrossExpenditure(FlaskForm):
     draft = IntegerField('Draft', validators=[DataRequired()])
     submit = SubmitField('Add Gross Expenditure', validators=[validate_admin])
 
-# class AddTravelExpensesStarCampaigners(FlaskForm):
-#     recordId = IntegerField('RecordId', validators=[DataRequired()])
-#     travelExpId = IntegerField('TravelExpId', validators=[DataRequired()])
-#     stateAndVenue = StringField('State and Venue', validators=[DataRequired()])
-#     dateOfMeeting = StringField('Date Of Meeting', validators=[DataRequired()])
-#     starCampaigner = StringField('Star Campaigner', validators=[DataRequired()])
-#     modeOfTravel = StringField('Mode Of Travel', validators=[DataRequired()])
-#     nameOfAircraftPayee = StringField('Name Of Aircraft Payee', validators=[DataRequired()])
-#     totalExpenses = IntegerField('Expenses', validators=[DataRequired()])
-#     submit = SubmitField('Add Travel Expenses')
+class AddTravelExpensesStarCampaigners(FlaskForm):
+    recordId = IntegerField('RecordId', validators=[DataRequired()])
+    #travelExpId = IntegerField('TravelExpId', validators=[DataRequired()])
+    stateAndVenue = StringField('State and Venue', validators=[DataRequired()])
+    dateOfMeeting = StringField('Date Of Meeting', validators=[DataRequired()])
+    starCampaigner = StringField('Star Campaigner', validators=[DataRequired()])
+    modeOfTravel = StringField('Mode Of Travel', validators=[DataRequired()])
+    nameOfAircraftPayee = StringField('Name Of Aircraft Payee', validators=[DataRequired()])
+    totalExpenses = IntegerField('Expenses', validators=[DataRequired()])
+    submit = SubmitField('Add Travel Expense', validators=[validate_admin])
 
-# class AddNewStarCampaignerInRecord(FlaskForm):
-#     recordId = IntegerField('RecordId', validators=[DataRequired()])
-#     travelExpId = IntegerField('RecordId', validators=[DataRequired()])
-#     starCampaigner = StringField('Opening Bal: Bank Name', validators=[DataRequired()])
-#     submit = SubmitField('Add New Star Campaigner')
+class AddNewStarCampaignerInRecord(FlaskForm):
+    recordId = IntegerField('Record Id', validators=[DataRequired()])
+    travelExpId = IntegerField('Travel Exp Id', validators=[DataRequired()])
+    starCampaigner = StringField('Star Campaigner', validators=[DataRequired()])
+    submit = SubmitField('Add Star Campaigner', validators=[validate_admin])
 
 class AddExpensesOnMediaAd(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
@@ -81,10 +81,3 @@ class AddExpensesOnPublicMeetings(FlaskForm):
     detailsOfItems = StringField('Details Of Items', validators=[DataRequired()])
     amount = IntegerField('Amount', validators=[DataRequired()])
     submit = SubmitField('Add Expenses On Publicity Meeting', validators=[validate_admin])
-
-
-
-
-
-
-

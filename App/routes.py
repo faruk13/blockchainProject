@@ -161,6 +161,47 @@ def addGrossExpenditure():
 
 # add travel expenses
 
+@app.route('/addTravelExpensesStarCampaigners',  methods=['GET', 'POST'])
+def addTravelExpensesStarCampaigners():
+    form = AddTravelExpensesStarCampaigners()
+    not_admin_msg()
+
+    if form.validate_on_submit():
+        campaignersCount = contract.functions.getERecStarCampaignersCount(form.recordId.data).call()
+        campaignersCount = 0 if campaignersCount == 0 else campaignersCount - 1
+        tx_hash = contract.functions.addTravelExpensesStarCampaigners(
+            form.recordId.data,
+            campaignersCount, #index
+            form.stateAndVenue.data,
+            form.dateOfMeeting.data,
+            form.starCampaigner.data,
+            form.modeOfTravel.data,
+            form.nameOfAircraftPayee.data,
+            form.totalExpenses.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Travel Expenses Star Campaigners added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addTravelExpensesStarCampaigners.html',  title='Travel Expenses Star Campaigners', form=form)
+
+@app.route('/addStarCampaignerInRecord',  methods=['GET', 'POST'])
+def addStarCampaignerInRecord():
+    form = AddNewStarCampaignerInRecord()
+    not_admin_msg()
+    if form.validate_on_submit():
+        tx_hash = contract.functions.addStarCampaignerInRecord(
+            form.recordId.data,
+            form.travelExpId.data,
+            form.starCampaigner.data
+        ).transact()
+        txHash = web3.toHex(tx_hash)
+        flash("Star Campaigner added! Transaction Hash: "+txHash, 'info')
+        return redirect(url_for('index'))
+
+    return render_template('addStarCampaigner.html',  title='Star Campaigner', form=form)
+
+
 @app.route('/addExpensesOnMediaAd',  methods=['GET', 'POST'])
 def addExpensesOnMediaAd():
     form = AddExpensesOnMediaAd()
