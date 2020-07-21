@@ -36,7 +36,7 @@ print("travelExp")
 # transaction['gasPrice'] = web3.toWei('50', 'gwei')
 # signed = web3.eth.account.signTransaction(transaction, senderAccount.privateKey)
 # tx_hash = web3.eth.sendRawTransaction(signed.rawTransaction)
-tx_hash = contract.functions.addTravelExpensesStarCampaigners(1,1,'State1','2020-04-21','cand1','aircr','payee1').transact()
+tx_hash = contract.functions.addTravelExpensesStarCampaigners(1,1,'State1','2020-04-21','cand1','aircr','payee1',12312414).transact()
 
 print(web3.toHex(tx_hash))
 print("got")
@@ -47,7 +47,7 @@ print(web3.toHex(tx_hash))
 print("got")
 print(contract.functions.getElectionRecord(1).call())
 print("add 2nd travel exp")
-tx_hash = contract.functions.addTravelExpensesStarCampaigners(1,2,'State1','2020-04-21','cand1','aircr','payee1').transact()
+tx_hash = contract.functions.addTravelExpensesStarCampaigners(1,2,'State1','2020-04-21','cand1','aircr','payee1',645645645).transact()
 print(web3.toHex(tx_hash))
 print("update 2nd travel exp star Campaigner")
 tx_hash = contract.functions.addStarCampaignerInRecord(1,2,'Cand3').transact()
@@ -103,6 +103,9 @@ print(web3.toHex(tx_hash))
 print("add record 2")
 print("get record count")
 print(contract.functions.getERecCount().call())
+print("get star campaigner count")
+print(contract.functions.getERecStarCampaignersCount(1).call())
+
 
 
 
