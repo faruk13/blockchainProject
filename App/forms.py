@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms import IntegerField, DateField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, InputRequired
 from App import app
 from App.contracts import sender_account, admin_check
 
@@ -29,15 +29,15 @@ class UpdateOpeningBankBalance(FlaskForm):
 
 class AddGrossReceipt(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
-    cash = IntegerField('Cash', validators=[DataRequired()])
-    chequeAmount = IntegerField('Cash', validators=[DataRequired()])
+    cash = IntegerField('Cash', validators=[InputRequired()])
+    chequeAmount = IntegerField('Cheque Amount', validators=[InputRequired()])
     submit = SubmitField('Add Gross Receipt', validators=[validate_admin])
 
 class AddGrossExpenditure(FlaskForm):
     recordId = IntegerField('RecordId', validators=[DataRequired()])
-    cash = IntegerField('Cash', validators=[DataRequired()])
-    chequeAmount = IntegerField('Cheque Amount', validators=[DataRequired()])
-    draft = IntegerField('Draft', validators=[DataRequired()])
+    cash = IntegerField('Cash', validators=[InputRequired()])
+    chequeAmount = IntegerField('Cheque Amount', validators=[InputRequired()])
+    draft = IntegerField('Draft', validators=[InputRequired()])
     submit = SubmitField('Add Gross Expenditure', validators=[validate_admin])
 
 class AddTravelExpensesStarCampaigners(FlaskForm):
